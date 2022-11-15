@@ -16,32 +16,18 @@ import Wishlists from "./src/page/main/components/Wishlists/Wishlists.jsx";
 import GetStart from "./src/page/auth/components/GetStart/GetStart.jsx";
 import Login from "./src/page/auth/components/Login/Login.jsx";
 import Register from "./src/page/auth/components/Register/Register.jsx";
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
-}
-
+import Tabbarbottom from "./src/page/main/components/Tabbarbottom/Tabbarbottom.js";
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="MyOrder" component={MyOrder} />
-        <Stack.Screen
-          name="Product_Categories"
-          component={Product_Categories}
-        />
-        <Stack.Screen name="Product" component={Product} />
-        <Stack.Screen name="Product_Detail" component={Product_Detail} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="Search" component={Search} />
-        <Stack.Screen name="Shopping_Cart" component={Shopping_Cart} />
-        <Stack.Screen name="Wishlists" component={Wishlists} />
+      <Stack.Navigator initialRouteName="Tabbarbottom" screenOptions={
+        {
+          headerShown:false,
+        }
+      }>
+        <Stack.Screen name="Tabbarbottom" component={Tabbarbottom} />
         <Stack.Screen name="GetStart" component={GetStart} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />

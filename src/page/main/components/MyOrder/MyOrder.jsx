@@ -1,14 +1,12 @@
-import { Text, View } from 'react-native'
-import React, { Component } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
 
-export class MyOrder extends Component {
-  render() {
-    return (
-      <View>
-        <Text>MyOrder</Text>
-      </View>
-    )
-  }
+export default function MyOrder() {
+  return (
+    <View style={{flex:1,alignItems: 'center', justifyContent: 'center' }} >
+      <Text>MyOrder</Text>
+    </View>
+  )
 }
 
-export default MyOrder
+const styles = StyleSheet.create({})

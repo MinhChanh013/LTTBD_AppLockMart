@@ -7,8 +7,9 @@ const data = [
     discount: 0.5,
     rate: 4.3,
     countRate: 45,
-    favorites: false,
+    favorites: true,
     categories: "fruits",
+    countOder:0,
   },
   {
     id: 2,
@@ -16,10 +17,11 @@ const data = [
     price: 10,
     img: "",
     discount: 0,
-    rate: 5,
+    rate: 5.0,
     countRate: 20,
-    favorites: false,
+    favorites: true,
     categories: "fruits",
+    countOder:0,
   },
   {
     id: 3,
@@ -29,8 +31,9 @@ const data = [
     discount: 0.5,
     rate: 4,
     countRate: 30,
-    favorites: false,
+    favorites: true,
     categories: "fruits",
+    countOder:0,
   },
   {
     id: 4,
@@ -42,6 +45,7 @@ const data = [
     countRate: 20,
     favorites: false,
     categories: "fruits",
+    countOder:0,
   },
   {
     id: 5,
@@ -51,8 +55,9 @@ const data = [
     discount: 0.3,
     rate: 3.8,
     countRate: 32,
-    favorites: false,
+    favorites: true,
     categories: "fruits",
+    countOder:0,
   },
   {
     id: 6,
@@ -64,6 +69,7 @@ const data = [
     countRate: 29,
     favorites: false,
     categories: "fresh",
+    countOder:0,
   },
   {
     id: 7,
@@ -75,6 +81,7 @@ const data = [
     countRate: 12,
     favorites: false,
     categories: "dairy",
+    countOder:0,
   },
   {
     id: 8,
@@ -86,6 +93,7 @@ const data = [
     countRate: 20,
     favorites: false,
     categories: "fruits",
+    countOder:0,
   },
   {
     id: 9,
@@ -97,6 +105,7 @@ const data = [
     countRate: 99,
     favorites: false,
     categories: "chicken",
+    countOder:0,
   },
 ];
 

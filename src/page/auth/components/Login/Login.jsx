@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 export class Login extends Component {
   render() {
     return (
-      <View>
+      <View style={{flex:1,alignItems: 'center', justifyContent: 'center' }} >
         <Text>Login</Text>
       </View>
     )
