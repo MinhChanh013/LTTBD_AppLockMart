@@ -31,6 +31,9 @@ function App() {
         <Stack.Screen name="GetStart" component={GetStart} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="Product_Categories" component={Product_Categories} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
