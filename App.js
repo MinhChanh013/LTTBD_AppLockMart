@@ -22,15 +22,22 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Tabbarbottom" screenOptions={
-        {
-          headerShown:false,
-        }
-      }>
-        <Stack.Screen name="Tabbarbottom" component={Tabbarbottom} />
+      <Stack.Navigator
+        initialRouteName="Tabbarbottom"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        {/* <Stack.Screen name="Tabbarbottom" component={Tabbarbottom} />
         <Stack.Screen name="GetStart" component={GetStart} />
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Register" component={Register} /> */}
+        <Stack.Screen
+          name="Product_Categories"
+          component={Product_Categories}
+        />
+        <Stack.Screen name="Product_Detail" component={Product_Detail} />
+        <Stack.Screen name="Shopping_Cart" component={Shopping_Cart} />
       </Stack.Navigator>
     </NavigationContainer>
   );
