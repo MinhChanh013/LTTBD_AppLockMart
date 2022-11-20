@@ -13,7 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/Entypo";
 import data from "../../../../api/data";
 const { height } = Dimensions.get("screen");
-export default function Product_Categories({ navigation, route }) {
+export default function ProductOfCategories({ navigation, route }) {
   const categories = "fruits";
   const list = data.filter((item) => item.categories === categories);
   const heightItem = (height * 0.8) / 4;

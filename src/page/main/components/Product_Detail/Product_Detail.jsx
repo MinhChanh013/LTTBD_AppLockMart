@@ -17,6 +17,8 @@ import IconAnt from "react-native-vector-icons/AntDesign";
 import IconFontAwesome from "react-native-vector-icons/FontAwesome";
 import colors from "../../../../colors/colors";
 import { LinearGradient } from "expo-linear-gradient";
+import { useDispatch } from "react-redux";
+import { cartActions } from "../../../../../store/cartSlice";
 
 const { height } = Dimensions.get("screen");
 
@@ -24,7 +26,8 @@ export default function Product_Detail({ navigation, route }) {
   const { item, list } = route.params;
   // state
   const [number, setNumber] = useState(1);
-  console.log(list);
+  // Redux
+  const dispatch = useDispatch();
 
   // Handle Event
   // Increment
@@ -37,6 +40,19 @@ export default function Product_Detail({ navigation, route }) {
       return;
     }
     setNumber(number - 1);
+  };
+  // Submit
+  const submitHandle = () => {
+    dispatch(
+      cartActions.addItemsToCart({
+        ...item,
+        quantity: number,
+        price: item.dicount
+          ? (item.price * item.discount).toFixed(2)
+          : item.price,
+      })
+    );
+    navigation.navigate("Shopping_Cart");
   };
   return (
     <View
@@ -69,7 +85,7 @@ export default function Product_Detail({ navigation, route }) {
               name="arrow-back"
               color="#333"
               style={{ fontSize: 18 }}
-              onPress={() => navigation.navigate("Product_Categories")}
+              onPress={() => navigation.navigate("ProductOfCategories")}
             ></Ionicons>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -306,7 +322,12 @@ export default function Product_Detail({ navigation, route }) {
               renderItem={(item) => {
                 const product = item.item;
                 return (
-                  <View style={{ flex: 1 }}>
+                  <TouchableOpacity
+                    style={{ flex: 1 }}
+                    onPress={() =>
+                      navigation.navigate("Product_Detail", { item:product, list })
+                    }
+                  >
                     <View style={{ height: 150, width: 150 }}>
                       <Image
                         source={product.img}
@@ -358,7 +379,7 @@ export default function Product_Detail({ navigation, route }) {
                         </Text>
                       )}
                     </View>
-                  </View>
+                  </TouchableOpacity>
                 );
               }}
             />
@@ -367,36 +388,33 @@ export default function Product_Detail({ navigation, route }) {
       </ScrollView>
       {/* Footer */}
       <View style={{ height: "10%", width: "100%" }}>
-        <TouchableOpacity 
-        style={{flex: 1,}}
-        onPress={() => navigation.navigate('Shopping_Cart')}
-        >
-        <LinearGradient
-          start={{ x: -1, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          colors={["#ffae7e", "#ff9e62", "#f55a21"]}
-          style={{
-            borderRadius: 15,
-            flex: 1,
-            marginVertical: 10,
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <IconFontAwesome
-            name="opencart"
+        <TouchableOpacity style={{ flex: 1 }} onPress={submitHandle}>
+          <LinearGradient
+            start={{ x: -1, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            colors={["#ffae7e", "#ff9e62", "#f55a21"]}
             style={{
-              color: "#fff",
-              fontWeight: "bold",
-              fontSize: 15,
-              marginRight: 10,
+              borderRadius: 15,
+              flex: 1,
+              marginVertical: 10,
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-          />
-          <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 15 }}>
-            ADD TO CART
-          </Text>
-        </LinearGradient>
+          >
+            <IconFontAwesome
+              name="opencart"
+              style={{
+                color: "#fff",
+                fontWeight: "bold",
+                fontSize: 15,
+                marginRight: 10,
+              }}
+            />
+            <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 15 }}>
+              ADD TO CART
+            </Text>
+          </LinearGradient>
         </TouchableOpacity>
       </View>
     </View>

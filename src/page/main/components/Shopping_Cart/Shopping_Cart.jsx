@@ -1,118 +1,329 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View ,FlatList } from 'react-native'
-import React, { useState } from 'react'
-import data from '../../../../api/data'
-const Item = ({ name ,rate,countRate,price,categories,countOder,data}) => (
- 
-  <View >
-    <View style={{flexDirection:'row',marginVertical:25,flex:1}}>
-      <View style={{marginRight:21}}>
-        <Image style={{width:57,height:57,borderRadius:14}} source={require("../../../../../assets/placeholder.png")}/>
-      </View>
-      <View style={{}}>
-      <Text style={{fontSize:18,fontWeight:'bold',marginBottom:15}}>{name}</Text>
-      <View style={{flexDirection:'row',alignItems:"center"}}>
-       <Text style={{color:"gray"}}>{categories}</Text>  
-      </View>
-      <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",width:200}}>
-      <Text style={{fontSize:18,fontWeight:"bold",marginVertical:19}}>${price}</Text>
-      <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
-        <TouchableOpacity style={{width:29,height:29,borderRadius:8,borderWidth:1,justifyContent:"center",alignItems:"center"}} onPress={(countOder) =>{
-            
-        }}>
-        <Image source={require("../../../../../assets/minus.png")}/> 
-        </TouchableOpacity>
-        <Text style={{marginHorizontal:10}}>{countOder}</Text>
-        <TouchableOpacity style={{width:29,height:29,borderRadius:8,borderWidth:1,justifyContent:"center",alignItems:"center"}} onPress={(countOder) =>{
-           
-        }}>
-        <Image source={require("../../../../../assets/Union.png")}/> 
-        </TouchableOpacity>
-      </View>
-      </View>
-      </View>
-    </View>
-  </View>
-);
-export default function Shopping_Cart() {
-  const [count,setcount] = useState(1);
-  const newdata = data.filter(d => d.favorites == true);
-  const renderItem = ({ item }) => (
-    <Item name={item.name} rate={item.rate} countRate={item.countRate} price={item.price} categories={item.categories} countOder={item.countOder} data={newdata}/>
-  );
-  return (
-    <View style={{paddingHorizontal:32,marginTop:44,flex:1}}>
-        <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center"}}>
-        <Text style={{fontWeight:'bold',fontSize:22}}>Shopping Cart</Text>
-        <Image source={require("../../../../../assets/option.png")}/>          
-        </View>
-        <FlatList
-        data={newdata}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        style={{height:500}}
-        />
-        <Text style={{fontSize:18,fontWeight:"bold",marginVertical:25}}>Bill Details</Text>
-        <ScrollView style={{}}>
-    <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginVertical:5}}>
-          <View
-          style={{width:194,height:24}}
-          >
-          <Text style={{fontSize:18,color:"#7D8FAB"}}>Item Total</Text>
-          </View>
-          <View>
-            <Text style={{fontSize:18,fontWeight:"bold"}} >$14.00</Text>
-          </View>
-        </View>
-        <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginVertical:5}}>
-          <View
-          style={{width:194,height:24}}
-          >
-          <Text style={{fontSize:18,color:"#7D8FAB"}}>Delivery Fee for 9.71 kms</Text>
-          </View>
-          <View>
-            <Text style={{fontSize:18,fontWeight:"bold"}} >+  $10.08</Text>
-          </View>
-        </View>
-        <View style={{flexDirection:"row",justifyContent:"space-between",alignItems:"center",marginVertical:5}}>
-          <View
-          style={{width:194,height:24}}
-          >
-          <Text style={{fontSize:18,color:"#7D8FAB"}}>Texes and Charge</Text>
-          </View>
-          <View>
-            <Text style={{fontSize:18,fontWeight:"bold"}} >+  $15.02</Text>
-          </View>
-        </View>
-        
-        <View style={{justifyContent:"space-between",alignItems:"center",flexDirection:"row",marginVertical:21}}>
-          <View>
-            <Text style={{fontSize:18,fontWeight:"bold"}}>Order Total</Text>
-          </View>
-          <View>
-            <Text style={{fontSize:18,fontWeight:"bold"}} >$39.01</Text>
-          </View>
-        </View>
-        <View style={{width:311,height:74,borderWidth:0.1,borderRadius:14,flexDirection:"row",justifyContent:"space-around",alignItems:"center",marginVertical:17}}>
-          <View style={{flexDirection:"row",justifyContent:"center",alignItems:"center"}}>
-          <Image source={require("../../../../../assets/voucher.png")}/>  
-          
-            <Text style={{marginLeft:17,fontSize:18}}>Promo Code</Text>
-          </View>
-          <TouchableOpacity
-          style={{width:75,height:37,borderRadius:19,backgroundColor:"#FF8B38",justifyContent:"center",alignItems:"center"}}
-          ><Text
-          style={{fontSize:16,color:"white",fontWeight:"bold"}}
-          >Apply</Text></TouchableOpacity>
-        </View>
-        <TouchableOpacity
-        style={{width:311,height:60,borderRadius:12,backgroundColor:"#FF8B38",justifyContent:"center",alignItems:"center"}}
-        ><Text
-        style={{fontSize:18,color:"white",fontWeight:"bold"}}
-        >CHECKOUT</Text></TouchableOpacity>    
-    
-        </ScrollView>
-    </View>
-  )
-}
+import {
+  Dimensions,
+  Image,
+  Pressable,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import React, { Component } from "react";
+import { Ionicons } from "@expo/vector-icons";
+import Icon from "react-native-vector-icons/Entypo";
+import { LinearGradient } from "expo-linear-gradient";
+import IconFontAwesome from "react-native-vector-icons/FontAwesome";
+import colors from "../../../../colors/colors";
+const { height } = Dimensions.get("screen");
+import coupon from "../../../../../assets/voucher.png";
+import { useDispatch, useSelector } from "react-redux";
+import { cartActions } from "../../../../../store/cartSlice";
+const Shopping_Cart = ({ navigation }) => {
+  // Redux
+  const items = useSelector(state => state.cart.items);
+  const totalPrice = useSelector(state => state.cart.totalPrice);
 
-const styles = StyleSheet.create({})
+  const dispatch = useDispatch()
+  
+  const decrementNumberHandle = (id)=>{
+    dispatch(cartActions.removeItemFromCart(id))
+  }
+  const incrementNumberHandle = (item)=>{
+    dispatch(cartActions.addItemToCart(item))
+  }
+  return (
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: "#fff",
+        paddingVertical: 20,
+        paddingHorizontal: 20,
+      }}
+    >
+      {/* Header */}
+      <View style={{ height: "10%", width: "100%" }}>
+        <View
+          style={{
+            justifyContent: "space-between",
+            alignItems: "center",
+            flex: 1,
+            flexDirection: "row",
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Ionicons
+              name="arrow-back"
+              color="#333"
+              style={{ fontSize: 18 }}
+              onPress={() => navigation.navigate("ProductOfCategories")}
+            ></Ionicons>
+            <Text style={{ marginLeft: 20, fontWeight: "bold", fontSize: 18 }}>
+              Shopping Cart
+            </Text>
+          </View>
+          <Icon
+            name="dots-three-vertical"
+            style={{ textAlign: "center", fontSize: 14 }}
+          />
+        </View>
+      </View>
+      {/* Body */}
+      <ScrollView style={{ flex: 1, marginVertical: 20 }}>
+        {/* List Item */}
+        {items.length === 0 ? 
+        <View style={{justifyContent: "center",alignItems: "center", height: 100, borderWidth: 2,backgroundColor: 'rgba(	251,	102,	46,0.3)', borderRadius: 15, borderColor: colors.orange}}><Text style={{color: '#333', fontWeight: "bold", fontSize: 18 }}>Cart is empty</Text></View>
+        
+        : items.map((item)=>(
+        <View
+          key={item.id}
+          style={{
+            marginBottom: 20,
+            flexDirection: "row",
+            paddingVertical: 20,
+            paddingHorizontal: 10,
+            borderWidth: 2,
+            borderColor: colors.border,
+            borderRadius: 15,
+          }}
+        >
+          <View style={{ height: 80, width: 80, marginRight: 10 }}>
+            <Image
+              source={item.img}
+              style={{
+                flex: 1,
+                height: null,
+                width: null,
+                resizeMode: "contain",
+              }}
+            />
+          </View>
+          <View>
+            <Text style={{ fontSize: 12, fontWeight: "bold", color: "#333" }}>
+              {item.name}
+            </Text>
+            <Text style={{ fontSize: 11, color: "#999", marginVertical: 5 }}>
+              {item.categories}
+            </Text>
+            {item.discount ? (
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ fontSize: 11, fontWeight: "bold" }}>
+                  ${(item.price * item.discount).toFixed(2)}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    fontWeight: "normal",
+                    color: "#999",
+                    textDecorationLine: "line-through",
+                    marginLeft: 5,
+                  }}
+                >
+                  ${item.price.toFixed(2)}
+                </Text>
+              </View>
+            ) : (
+              <Text style={{ fontSize: 11, fontWeight: "bold" }}>
+                ${item.price.toFixed(2)}
+              </Text>
+            )}
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginLeft: 20,
+            }}
+          >
+            <Pressable
+              style={({ pressed }) => [
+                {
+                  padding: 4,
+                  borderWidth: 2,
+                  borderColor: pressed ? "#fff" : "#c1c1c1",
+                  borderRadius: 8,
+                  backgroundColor: pressed ? "#FB662E" : "#fff",
+                  opacity: pressed ? 0.4 : 1,
+                },
+              ]}
+              onPress={()=>decrementNumberHandle(item.id)}
+            >
+              {({ pressed }) => (
+                <Ionicons
+                  name={"remove"}
+                  style={[{ color: pressed ? "#FB662E" : "black" }]}
+                ></Ionicons>
+              )}
+            </Pressable>
+            <Text style={{ marginHorizontal: 10, fontSize: 14 }}>{item.quantity}</Text>
+            <Pressable
+              style={({ pressed }) => [
+                {
+                  padding: 4,
+                  borderWidth: 2,
+                  borderColor: pressed ? "#fff" : "#c1c1c1",
+                  borderRadius: 8,
+                  backgroundColor: pressed ? "#FB662E" : "#fff",
+                  opacity: pressed ? 0.4 : 1,
+                },
+              ]}
+              onPress={()=>incrementNumberHandle(item)}
+            >
+              {({ pressed }) => (
+                <Ionicons
+                  name={"add"}
+                  style={[{ color: pressed ? "#FB662E" : "black" }]}
+                ></Ionicons>
+              )}
+            </Pressable>
+          </View>
+        </View>
+        ))}
+        {/* End List item */}
+
+        {/* Bill Detail */}
+        <View
+          style={{
+            marginTop: 5,
+            borderBottomWidth: 1,
+            borderColor: colors.border,
+            paddingBottom: 20,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: "bold",
+              color: "#333",
+              marginVertical: 20,
+            }}
+          >
+            Bill Details
+          </Text>
+          <View
+            style={{
+              marginBottom: 12,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={{ color: "#666" }}>Item Total</Text>
+            <Text style={{ fontWeight: "bold" }}>${totalPrice.toFixed(2)}</Text>
+          </View>
+          <View
+            style={{
+              marginBottom: 12,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={{ color: "#666" }}>Delivery Fee for 9.71 kms</Text>
+            <Text style={{ fontWeight: "bold" }}>$0.00</Text>
+          </View>
+          <View
+            style={{
+              marginBottom: 12,
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
+          >
+            <Text style={{ color: "#666" }}>Taxes and Charge</Text>
+            <Text style={{ fontWeight: "bold" }}>$100</Text>
+          </View>
+        </View>
+        {/* Order Total  */}
+        <View
+          style={{
+            marginVertical: 20,
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Text style={{ color: "#333", fontWeight: "bold", fontSize: 14 }}>
+            Order Total
+          </Text>
+          <Text style={{ color: "#333", fontWeight: "bold", fontSize: 14 }}>
+            ${(totalPrice/1 + 100).toFixed(2)}
+          </Text>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            paddingVertical: 10,
+            borderRadius: 10,
+            borderColor: colors.border,
+            borderWidth: 1,
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingHorizontal: 20
+          }}
+        >
+          <Image source={coupon} />
+
+          <Text style={{ color: "#666", fontSize: 14, marginRight: 50}}>Promo Code</Text>
+          <TouchableOpacity style={{}}>
+            <LinearGradient
+              start={{ x: -1, y: 0 }}
+              end={{ x: 1, y: 0 }}
+              colors={["#ffae7e", "#ff9e62", "#f55a21"]}
+              style={{
+                borderRadius: 20,
+                flex: 1,
+                marginVertical: 10,
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                style={{
+                  color: "#fff",
+                  fontWeight: "bold",
+                  fontSize: 10,
+                  paddingHorizontal: 16,
+                  paddingVertical: 8,
+                }}
+              >
+                Apply
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+      {/* Footer */}
+      <View style={{ height: "10%", width: "100%" }}>
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          onPress={() => navigation.navigate("Shopping_Cart")}
+        >
+          <LinearGradient
+            start={{ x: -1, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            colors={["#ffae7e", "#ff9e62", "#f55a21"]}
+            style={{
+              borderRadius: 15,
+              flex: 1,
+              marginVertical: 10,
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            
+            <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 15 }}>
+              CHECKOUT
+            </Text>
+          </LinearGradient>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+export default Shopping_Cart;
