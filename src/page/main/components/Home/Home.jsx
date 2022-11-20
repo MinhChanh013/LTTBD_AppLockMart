@@ -80,7 +80,7 @@ export default function Home({ navigation }) {
               onPress={() => {
                 navigation.navigate("Search")
               }}>
-              <View style={{ paddingTop: 40, marginTop: 15, flexDirection: "row", width: "100%", justifyContent: "space-between", alignItems: "center" }}>
+              <View style={{ paddingTop: 55, marginTop: 15, flexDirection: "row", width: "100%", justifyContent: "space-between", alignItems: "center" }}>
                 <View style={{ width: "80%", padding: 15, paddingLeft: 45, borderWidth: 1, borderColor: "#dee2e8", borderRadius: 10 }}>
                   <TextInput onPressIn={() => {
                     navigation.navigate("Search")
@@ -106,7 +106,7 @@ export default function Home({ navigation }) {
                   <Text style={{ marginTop: 15, fontSize: 22, fontWeight: "700", color: "#fff" }}>25% OFF</Text>
                   <Text style={{ marginTop: 5, fontSize: 14, fontWeight: "700" }}>Get 25% off on all fruits*</Text>
                   <TouchableOpacity style={{ marginTop: 10, padding: 7, backgroundColor: "#FE8938", width: 95, borderRadius: 10, overflow: 'hidden' }}>
-                    <Text style={{ color: "#fff", fontSize: "12", fontWeight: "700" }}>ORDER NOW</Text>
+                    <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>ORDER NOW</Text>
                   </TouchableOpacity>
                 </View>
                 <View style={{ backgroundColor: "#38CA9E", borderRadius: 12, overflow: 'hidden', height: "100%", padding: 15 }}>
@@ -115,7 +115,7 @@ export default function Home({ navigation }) {
                   <Text style={{ marginTop: 15, fontSize: 22, fontWeight: "700", color: "#fff" }}>25% OFF</Text>
                   <Text style={{ marginTop: 5, fontSize: 14, fontWeight: "700" }}>Get 25% off on all fruits*</Text>
                   <TouchableOpacity style={{ marginTop: 10, padding: 7, backgroundColor: "#FE8938", width: 95, borderRadius: 10, overflow: 'hidden' }}>
-                    <Text style={{ color: "#fff", fontSize: "12", fontWeight: "700" }}>ORDER NOW</Text>
+                    <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>ORDER NOW</Text>
                   </TouchableOpacity>
                 </View>
                 <View style={{ backgroundColor: "#FCA817", borderRadius: 12, overflow: 'hidden', height: "100%", padding: 15 }}>
@@ -124,7 +124,7 @@ export default function Home({ navigation }) {
                   <Text style={{ marginTop: 15, fontSize: 22, fontWeight: "700", color: "#fff" }}>25% OFF</Text>
                   <Text style={{ marginTop: 5, fontSize: 14, fontWeight: "700" }}>Get 25% off on all fruits*</Text>
                   <TouchableOpacity style={{ marginTop: 10, padding: 7, backgroundColor: "#FE8938", width: 95, borderRadius: 10, overflow: 'hidden' }}>
-                    <Text style={{ color: "#fff", fontSize: "12", fontWeight: "700" }}>ORDER NOW</Text>
+                    <Text style={{ color: "#fff", fontSize: 12, fontWeight: "700" }}>ORDER NOW</Text>
                   </TouchableOpacity>
                 </View>
               </Swiper>

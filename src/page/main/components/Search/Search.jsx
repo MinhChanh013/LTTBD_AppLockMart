@@ -15,7 +15,7 @@ export default function Search({ navigation }) {
     <View style={{ flex: 1, width: "100%", paddingHorizontal: 30, alignItems: "center", backgroundColor: "#fff" }}>
       <View style={{ paddingTop: 40 }}>
         <View style={{ flex: 0.5 }}>
-          <TouchableOpacity onPress={() => {navigation.navigate("Home")}}>
+          <TouchableOpacity onPress={() => { navigation.navigate("Home") }}>
             <FontAwesome5 name="times" size={30} color="black" />
           </TouchableOpacity>
           <Text style={{ marginTop: 20, fontSize: 22, fontWeight: "700" }}>Search</Text>
@@ -71,8 +71,8 @@ export default function Search({ navigation }) {
           ))}
         </View>
         <View style={{ flex: 0.7, paddingTop: 25, borderTopColor: "#E8ECF2", borderTopWidth: 5 }}>
-          <Text style={{ fontSize: "18", fontWeight: "700" }}>Seacrh result</Text>
-          {dataSearch.length === 0 ? <View style={{ justifyContent: "center", alignItems: "center", height: "70%" }}><Text style={{ fontStyle: "italic", color: "#7D8FAB", fontSize: "16", fontWeight: "600" }}>No result Found</Text></View> : <FlatList
+          <Text style={{ fontSize: 18, fontWeight: "700" }}>Seacrh result</Text>
+          {dataSearch.length === 0 ? <View style={{ justifyContent: "center", alignItems: "center", height: "70%" }}><Text style={{ fontStyle: "italic", color: "#7D8FAB", fontSize: 16, fontWeight: "600" }}>No result Found</Text></View> : <FlatList
             style={{ marginTop: 20, height: "100%", overflow: "hidden", paddingBottom: 10 }}
             showsVerticalScrollIndicator={false}
             data={dataSearch}
@@ -91,10 +91,10 @@ export default function Search({ navigation }) {
                     </View>
                     <Text style={{ marginLeft: 20, color: "#FA662E", fontWeight: "500" }}>{item.countRate} Ratings</Text>
                   </View>
-                  <Text style={{ marginTop: 15, fontSize: 18, fontWeight: "700" }}>${item.price.toFixed(2)}</Text>
+                  <Text style={{ marginTop: 15, fontSize: 18, fontWeight: "700", width: "100%" }}>${item.price.toFixed(2)}</Text>
                   {item.discount !== 0 && <View style={{ paddingTop: 15, marginTop: 20, borderTopColor: "#E8ECF2", borderTopWidth: 1, flexDirection: "row", alignItems: "center" }}>
                     <Image source={discount} />
-                    <Text style={{ fontSize: 13, marginLeft: 10, color: "#7D8FAB" }}>{item.discount * 100}% off upto ${item.price * (1 - item.discount)} </Text>
+                    <Text style={{ fontSize: 12, marginLeft: 3, color: "#7D8FAB" }}>{item.discount * 100}% off upto ${(item.price * (1 - item.discount)).toFixed(2)} </Text>
                   </View>}
                 </View>
               </View>
