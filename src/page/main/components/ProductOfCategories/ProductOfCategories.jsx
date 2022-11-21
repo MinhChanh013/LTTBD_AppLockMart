@@ -13,9 +13,13 @@ import { Ionicons } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/Entypo";
 import data from "../../../../api/data";
 const { height } = Dimensions.get("screen");
+import type_categories from "../../../../api/type_categories";
+
 export default function ProductOfCategories({ navigation, route }) {
-  const categories = "fruits";
-  const list = data.filter((item) => item.categories === categories);
+  const {categories} = route.params;
+  console.log("Categories:");
+  console.log(categories);
+  const list = data.filter((item) => item.categories === categories.toLowerCase());
   const heightItem = (height * 0.8) / 4;
   const changeFavoritesItem = (item) => {
     console.log(item);
@@ -195,9 +199,10 @@ export default function ProductOfCategories({ navigation, route }) {
               name="arrow-back"
               color="#333"
               style={{ fontSize: 18 }}
+              onPress={() => navigation.navigate("Product_Categories",{type_categories})}
             ></Ionicons>
             <Text style={{ marginLeft: 20, fontWeight: "bold", fontSize: 18 }}>
-              Fruits
+              {categories}
             </Text>
           </View>
           <Icon

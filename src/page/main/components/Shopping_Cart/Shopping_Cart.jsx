@@ -60,7 +60,7 @@ const Shopping_Cart = ({ navigation }) => {
               name="arrow-back"
               color="#333"
               style={{ fontSize: 18 }}
-              onPress={() => navigation.navigate("ProductOfCategories")}
+              onPress={() => navigation.navigate("Home")}
             ></Ionicons>
             <Text style={{ marginLeft: 20, fontWeight: "bold", fontSize: 18 }}>
               Shopping Cart

@@ -5,7 +5,7 @@ import dua from "../../assets/dua.jpg";
 import dau from "../../assets/dau.jpg";
 import salad from "../../assets/salad.jpg";
 import dogBiscuit from "../../assets/dog_biscuit.jpg";
-import tomato from "../../assets/tomato.jpg";
+import tomato from "../../assets/tomato.png";
 import chicken from "../../assets/chicken.png";
 
 const data = [

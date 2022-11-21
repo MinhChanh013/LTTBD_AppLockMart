@@ -43,6 +43,11 @@ function App() {
           />
           <Stack.Screen name="Product_Detail" component={Product_Detail} />
           <Stack.Screen name="Shopping_Cart" component={Shopping_Cart} />
+          <Stack.Screen name="Search" component={Search} />
+          <Stack.Screen
+            name="Product_Categories"
+            component={Product_Categories}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
