@@ -19,7 +19,9 @@ import dairy from "../../../../../assets/Dairy.png"
 import vegetableCategories from "../../../../../assets/vegetable_catagory.png"
 import discount from "../../../../../assets/chanh_discount.jpg"
 // data
-import data from '../../../../api/data';
+// import data from '../../../../api/data';
+import { useDispatch, useSelector } from 'react-redux';
+import { productActions } from '../../../../../store/productSlice';
 const type_categories = [
   {
     name: "Fruits",
@@ -47,12 +49,17 @@ const type_categories = [
     image: vegetableCategories
   },
 ]
-const all_grocery = [
-  data[6], data[7], data[8]
-]
+
 
 export default function Home({ navigation }) {
   const [arrHeart, setArrHeart] = React.useState([])
+  // Redux
+  const data = useSelector(state => state.product.items)
+  const dispatch = useDispatch()
+  // 
+  const all_grocery = [
+  data[6], data[7], data[8]
+]
   const list = data.filter((course) =>  course.discount > 0)
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: "#fff" }} >
@@ -186,18 +193,10 @@ export default function Home({ navigation }) {
                           <Text style={{ padding: 5, position: "absolute", top: 10, left: 10, backgroundColor: "#FA662E", color: "#fff", borderRadius: 7, overflow: "hidden" }}>{item.discount * 100}% OFF</Text>
                           <TouchableOpacity
                             onPress={() => {
-                              if (arrHeart.length > 0 && arrHeart.some((course) => { return course === index })) {
-                                let newArrHeart = arrHeart.filter((course) => {
-                                  return course !== index
-                                })
-                                setArrHeart(newArrHeart)
-                              }
-                              else {
-                                setArrHeart([...arrHeart, index])
-                              }
+                              dispatch(productActions.changeFavoriteItem(item))
                             }}
                             style={{ position: "absolute", right: 30, top: 10 }}>
-                            <AntDesign name="heart" size={24} style={arrHeart.some((course) => { return course === index }) ? styles.active_Heart : styles.default_Heart} />
+                            <AntDesign name="heart" size={24} style={item.favorites ? styles.active_Heart : styles.default_Heart} />
                           </TouchableOpacity>
                         </View>
                         <Text style={{ fontSize: 18, fontWeight: "700", marginTop: 10 }}>{item.name}</Text>

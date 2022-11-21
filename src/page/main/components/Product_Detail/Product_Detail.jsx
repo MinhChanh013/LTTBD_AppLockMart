@@ -85,7 +85,7 @@ export default function Product_Detail({ navigation, route }) {
               name="arrow-back"
               color="#333"
               style={{ fontSize: 18 }}
-              onPress={() => navigation.navigate("ProductOfCategories")}
+              onPress={() => navigation.navigate("ProductOfCategories",{categories: item.categories})}
             ></Ionicons>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>

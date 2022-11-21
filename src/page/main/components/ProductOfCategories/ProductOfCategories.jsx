@@ -11,19 +11,25 @@ import {
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/Entypo";
-import data from "../../../../api/data";
+// import data from "../../../../api/data";
 const { height } = Dimensions.get("screen");
 import type_categories from "../../../../api/type_categories";
+import { useDispatch, useSelector } from "react-redux";
+import { productActions } from "../../../../../store/productSlice";
 
 export default function ProductOfCategories({ navigation, route }) {
   const {categories} = route.params;
-  console.log("Categories:");
-  console.log(categories);
+   // Redux
+  const data = useSelector(state => state.product.items);
+  const dispatch = useDispatch()
+  // 
+
   const list = data.filter((item) => item.categories === categories.toLowerCase());
   const heightItem = (height * 0.8) / 4;
+
+ 
   const changeFavoritesItem = (item) => {
-    console.log(item);
-    item.favorites = !item.favorites;
+    dispatch(productActions.changeFavoriteItem(item))
   };
 
   const ListRender = list.map((item) => (
@@ -62,7 +68,7 @@ export default function ProductOfCategories({ navigation, route }) {
             fontSize: 18,
             position: "absolute",
             right: 10,
-            top: 10,
+            top: 20,
             zIndex: 1,
           }}
           color={item.favorites ? "red" : "#999"}

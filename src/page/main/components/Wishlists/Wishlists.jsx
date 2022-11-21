@@ -1,11 +1,15 @@
-import { FlatList, Image, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { FlatList, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import data from '../../../../api/data';
-const Item = ({ name ,rate,countRate,price}) => (
-  <View >
+import { useSelector } from 'react-redux';
+const Item = (props) => {
+  const { name,img ,rate,countRate,price} = props.item
+  const {navigation,list, item} = props;
+  return(
+  <TouchableOpacity onPress={()=>navigation.navigate("Product_Detail",{item,list})}>
     <View style={{flexDirection:'row',marginVertical:25}}>
       <View style={{marginRight:21}}>
-        <Image style={{width:112,height:138}} source={require("../../../../../assets/placeholder.png")}/>
+        <Image style={{width:112,height:138}} source={img}/>
         <Image style={{position:'absolute',top:0,right:0,margin:11}} source={require("../../../../../assets/Heart.png")}/>
       </View>
       <View style={{}}>
@@ -16,15 +20,16 @@ const Item = ({ name ,rate,countRate,price}) => (
         <Text style={{color:"#FA662E",fontSize:16}}>{countRate} Ratings</Text>
         
       </View>
-      <Text style={{fontSize:18,fontWeight:"bold",marginVertical:19}}>${price}</Text>
+      <Text style={{fontSize:18,fontWeight:"bold",marginVertical:19}}>${price.toFixed(2)}</Text>
       </View>
     </View>
-  </View>
-);
-export default function Wishlists() {
+  </TouchableOpacity>
+);}
+export default function Wishlists({navigation}) {
+  const data = useSelector(state => state.product.items)
   const newdata = data.filter(d => d.favorites == true);
   const renderItem = ({ item }) => (
-    <Item name={item.name} rate={item.rate} countRate={item.countRate} price={item.price} />
+    <Item item = {item} navigation = {navigation} list = {newdata}/>
   );
   return (
     
