@@ -65,6 +65,10 @@ const cartSlice = createSlice({
       state.totalPrice -= existingCart.price * existingCart.quantity;
       state.items = state.items.filter((item) => item.id !== id);
     },
+    emtyCart: (state, action) => {
+      (state.items = []), (state.totalPrice = 0);
+      state.totalQuantity = 0;
+    },
   },
 });
 export const cartActions = cartSlice.actions;

@@ -17,10 +17,12 @@ const { height } = Dimensions.get("screen");
 import coupon from "../../../../../assets/voucher.png";
 import { useDispatch, useSelector } from "react-redux";
 import { cartActions } from "../../../../../store/cartSlice";
+import { orderActions } from "../../../../../store/orderSlice";
 const Shopping_Cart = ({ navigation }) => {
   // Redux
   const items = useSelector(state => state.cart.items);
   const totalPrice = useSelector(state => state.cart.totalPrice);
+    const totalQuantity = useSelector(state => state.cart.totalQuantity);
 
   const dispatch = useDispatch()
   
@@ -29,6 +31,33 @@ const Shopping_Cart = ({ navigation }) => {
   }
   const incrementNumberHandle = (item)=>{
     dispatch(cartActions.addItemToCart(item))
+  }
+
+  // Event
+  const checkOutHandle = ()=>{
+    if(totalQuantity === 0 ){
+      return
+    }
+
+    // totalQuantity
+    // Date
+    // Name
+
+    // Date
+    const time = new Date()
+    const date = `${time.getDate()}-${time.getMonth()+1}-${time.getFullYear()}`
+   
+    function guidGenerator() {
+    var S4 = function() {
+       return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+    };
+    return (S4()+S4());
+    }
+    // Name
+    const name = guidGenerator();
+      dispatch(orderActions.addOrder({name,totalPrice,totalQuantity,date}))
+      dispatch(cartActions.emtyCart())
+     navigation.navigate("MyOrder")
   }
   return (
     <View
@@ -300,7 +329,7 @@ const Shopping_Cart = ({ navigation }) => {
       <View style={{ height: "10%", width: "100%" }}>
         <TouchableOpacity
           style={{ flex: 1 }}
-          onPress={() => navigation.navigate("Shopping_Cart")}
+          onPress={checkOutHandle}
         >
           <LinearGradient
             start={{ x: -1, y: 0 }}

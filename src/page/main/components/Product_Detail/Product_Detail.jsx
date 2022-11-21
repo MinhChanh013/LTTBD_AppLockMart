@@ -89,7 +89,7 @@ export default function Product_Detail({ navigation, route }) {
             ></Ionicons>
           </View>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Ionicons name="heart" style={{ fontSize: 18, marginRight: 25 }} />
+            <Ionicons name="heart" style={{ fontSize: 18, marginRight: 25 ,color: item.favorites ? "red" : "#333"}} />
             <Icon
               name="dots-three-vertical"
               style={{ textAlign: "center", fontSize: 16 }}
