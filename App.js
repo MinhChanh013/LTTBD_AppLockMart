@@ -27,15 +27,16 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Tabbarbottom"
+          initialRouteName="GetStart"
           screenOptions={{
             headerShown: false,
           }}
         >
-          {/* <Stack.Screen name="Tabbarbottom" component={Tabbarbottom} />
-        <Stack.Screen name="GetStart" component={GetStart} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} /> */}
+          <Stack.Screen name="GetStart" component={GetStart} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="Tabbarbottom" component={Tabbarbottom} />
+
           <Stack.Screen
             name="ProductOfCategories"
             component={ProductOfCategories}
