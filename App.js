@@ -1,6 +1,6 @@
 // In App.js in a new project
 
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -17,23 +17,53 @@ import GetStart from "./src/page/auth/components/GetStart/GetStart.jsx";
 import Login from "./src/page/auth/components/Login/Login.jsx";
 import Register from "./src/page/auth/components/Register/Register.jsx";
 import Tabbarbottom from "./src/page/main/components/Tabbarbottom/Tabbarbottom.js";
+import { firebase } from "./config.js";
 const Stack = createNativeStackNavigator();
 
 function App() {
-  return (
-    <NavigationContainer>
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+  useEffect(() => {
+    const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber;
+  }, []);
+  if (initializing) return null;
+  if (!user) {
+    return (
+
       <Stack.Navigator initialRouteName="GetStart" screenOptions={
         {
-          headerShown:false,
+          headerShown: false,
         }
       }>
         <Stack.Screen name="GetStart" component={GetStart} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="Tabbarbottom" component={Tabbarbottom} /> 
+        {/* <Stack.Screen name="Tabbarbottom" component={Tabbarbottom} /> */}
+
       </Stack.Navigator>
-    </NavigationContainer>
-  );
+
+    );
+  }
+  return (
+    <Stack.Navigator screenOptions={
+      {
+        headerShown: false
+      }
+    }>
+      <Stack.Screen name="Tabbarbottom" component={Tabbarbottom} />
+    </Stack.Navigator>
+  )
 }
 
-export default App;
+export default () => {
+  return (
+    <NavigationContainer>
+      <App />
+    </NavigationContainer>
+  )
+};

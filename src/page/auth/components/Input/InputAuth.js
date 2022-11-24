@@ -6,8 +6,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const InputAuth = ({ titlePlaceHolder, isPassWord, isEmail }, props) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [errUserName, setErrUserName] = useState("");
   return (
-    isEmail ? (
+    isEmail ? (<>
       <View style={[style.inputContainer, isFocused && { borderWidth: 1, borderColor: COLORSS.primary }]}>
         <Icon name="email" size={28} />
         <TextInput
@@ -16,8 +17,16 @@ const InputAuth = ({ titlePlaceHolder, isPassWord, isEmail }, props) => {
           placeholder={titlePlaceHolder}
           onBlur={() => setIsFocused(false)}
           onFocus={() => setIsFocused(true)}
+          onChangeText={(text) => {
+            if (text === "") {
+              setErrUserName("*Email không được bỏ trống")
+            } else {
+              setErrUserName("")
+            }
+          }}
         />
       </View>
+    </>
     )
       :
       (
@@ -33,7 +42,7 @@ const InputAuth = ({ titlePlaceHolder, isPassWord, isEmail }, props) => {
               secureTextEntry={true}
             />
             <TouchableOpacity>
-              <Icon name='remove-red-eye' size={28} style={[{ color: COLORSS.grey }, isFocused && {color:COLORSS.primary}]} />
+              <Icon name='remove-red-eye' size={28} style={[{ color: COLORSS.grey }, isFocused && { color: COLORSS.primary }]} />
             </TouchableOpacity>
           </View>)
           :
