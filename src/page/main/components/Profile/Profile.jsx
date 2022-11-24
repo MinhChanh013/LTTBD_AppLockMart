@@ -1,5 +1,6 @@
 import { Image, StyleSheet, Text, View , ScrollView, TouchableOpacity} from 'react-native'
-import React from 'react'
+import React from 'react';
+import { firebase } from '../../../../../config';
 
 export default function Profile() {
   return (
@@ -71,7 +72,7 @@ export default function Profile() {
                 </TouchableOpacity>
               </View>
               
-              <View style={{flexDirection:'row',marginVertical:24,marginHorizontal:23,width:"100%",alignItems:"center"}}>
+              <TouchableOpacity onPress={() => firebase.auth().signOut()} style={{flexDirection:'row',marginVertical:24,marginHorizontal:23,width:"100%",alignItems:"center"}}>
                 <View style={{width:41,height:44,backgroundColor:"#fc823d",borderRadius:7,justifyContent:'center',alignItems:"center",marginRight:21}}>
                   <Image source={require("../../../../../assets/logout.png")}/>
                 </View>
@@ -81,7 +82,7 @@ export default function Profile() {
                 <TouchableOpacity style={{width:50,height:20,justifyContent:"center"}}>
                   <Image source={require("../../../../../assets/Arrow.png")} style={{flex:1,alignSelf:"flex-end"}} />
                 </TouchableOpacity>
-              </View>
+              </TouchableOpacity>
           </ScrollView>
       </View>
     </View>
